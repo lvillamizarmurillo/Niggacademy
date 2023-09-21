@@ -78,11 +78,40 @@ db.usuarios.insertMany([
     }
 ])
 
+use('niggacademy_campus');
 db.createCollection('cursos', {
-    validation: {
+    validator: {
         $jsonSchema: {
             bsonType: 'object',
-            required: ['nombre','']
+            required: ['nombre','descripcion'],
+            properties: {
+                nombre: {bsonType: 'string', description: 'El nombre del curso es necesario y debe ser string'},
+                descripcion: {bsonType: 'string', description: 'La descripcion del curso es necesario y debe ser string'},
+                calificacion: {
+                    bsonType: 'object',
+                    required: ['contador','estrellas'],
+                    properties: {
+                        contador: {bsonType: 'int',description: 'El contador es requerido y debe ser entero'},
+                        estrellas: {bsonType: 'int',enum: [0,1,2,3,4,5],description: 'Las estrellas son requeridas y deben ser un numero entero'}
+                    }
+                },
+                correo: {bsonType: 'string',pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",description: 'El correo es obligatorio y debe ser string'},
+                activo: {bsonType: 'int', enum: [0,1]}
+            }
         }
     }
 })
+
+use('niggacademy_campus');
+db.cursos.insertMany([
+    {
+        nombre: "Nodejs",
+        descripcion: "Aca podras aprender sobre",
+        calificacion: {
+            contador: 3,
+            estrellas: 4
+        },
+        correo: "me_encanta_mentir@gmail.com",
+        activo: 1
+    }
+])
