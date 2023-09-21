@@ -106,12 +106,46 @@ use('niggacademy_campus');
 db.cursos.insertMany([
     {
         nombre: "Nodejs",
-        descripcion: "Aca podras aprender sobre",
+        descripcion: "Aca podras aprender sobre Nodejs desde cero",
         calificacion: {
             contador: 3,
             estrellas: 4
         },
         correo: "me_encanta_mentir@gmail.com",
         activo: 1
+    }
+])
+
+use('niggacademy_campus');
+db.createCollection('secciones', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ['nombre','descripcion'],
+            properties: {
+                cursoId: {bsonType: 'string'},
+                nombre: {bsonType: 'string', description: 'El nombre del curso es necesario y debe ser string'},
+                descripcion: {bsonType: 'string', description: 'La descripcion del curso es necesario y debe ser string'}
+            }
+        }
+    }
+})
+
+use('niggacademy_campus');
+db.cursos.insertMany([
+    {
+        cursoId: '650cbeee4d409afeacfeb334',
+        nombre: "Introduccion",
+        descripcion: "Aca podras aprender sobre la introduccion a node"
+    },
+    {
+        cursoId: '650cbeee4d409afeacfeb334',
+        nombre: "BasesNode",
+        descripcion: "Aca podras aprender sobre las bases de node"
+    },
+    {
+        cursoId: '650cbeee4d409afeacfeb334',
+        nombre: "Variables",
+        descripcion: "Aca podras aprender sobre las variables en node"
     }
 ])
