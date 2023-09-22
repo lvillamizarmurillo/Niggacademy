@@ -243,3 +243,24 @@ db.comentarios.insertMany([
         comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
     }
 ])
+
+use('niggacademy_campus');
+db.createCollection('favoritos', {
+    validator:{
+        $jsonSchema:{
+            bsonType: 'object',
+            properties: {
+                cursoId: {bsonType: 'string'},
+                usuarioId: {bsonType: 'string'}
+            }
+        }
+    }
+})
+
+use('niggacademy_campus');
+db.favoritos.insertMany([
+    {
+        cursoId: '650d24963fd885ffe42feb63',
+        usuarioId: '650d2439199be7f260d56a22'
+    }
+])
