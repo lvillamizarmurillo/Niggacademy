@@ -3,10 +3,11 @@ db.createCollection('usuarios', {
     validator: {
         $jsonSchema: {
             bsonType: "object",
-            required: ['nombre','apellido','correo','password'],
+            required: ['nombre','apellido','nombreUsuario','correo','password'],
             properties:{
                 nombre: {bsonType: 'string',description: 'El nombre es obligatorio y debe ser string'},
                 apellido: {bsonType: 'string',description: 'El apellido es obligatorio y debe ser string'},
+                nombreUsuario: {bsonType: 'string',description: 'El nombre de usuario es obligatorio y debe ser string'},
                 correo: {bsonType: 'string',pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",description: 'El correo es obligatorio y debe ser string'},
                 password: {bsonType: 'string',description: 'El password es obligatorio y debe ser string'},
                 rol: {bsonType: 'int',enum: [1,2,3,4]},
@@ -28,13 +29,14 @@ db.createCollection('usuarios', {
         }
     }
 })
-db.usuarios.createIndex({ correo: 1 }, { unique: true })
+db.usuarios.createIndex({ correo: 1, nombreUsuario: 1}, { unique: true })
 
 use('niggacademy_campus');
 db.usuarios.insertMany([
     {
         nombre: "Ludwing",
         apellido: "Villamizar",
+        nombreUsuario: 'lvillamizarmurillo',
         correo: "ludsan@gmail.com",
         password: "contraseña",
         rol: 4,
@@ -46,6 +48,7 @@ db.usuarios.insertMany([
     {
         nombre: "Carlos",
         apellido: "Chinguiro",
+        nombreUsuario: 'MataTejas2000',
         correo: "chinguiro@gmail.com",
         password: "963",
         rol: 1,
@@ -57,6 +60,7 @@ db.usuarios.insertMany([
     {
         nombre: "Valentina",
         apellido: "Mentirosa",
+        nombreUsuario: 'HoyPongoCachos',
         correo: "me_encanta_mentir@gmail.com",
         password: "123",
         rol: 2,
@@ -68,6 +72,7 @@ db.usuarios.insertMany([
     {
         nombre: "Juanito",
         apellido: "Alimaña",
+        nombreUsuario: 'LaCalleEsUnaCeldaDeCemento',
         correo: "mucha_maña@gmail.com",
         password: "321",
         rol: 3,
@@ -134,17 +139,17 @@ db.createCollection('secciones', {
 use('niggacademy_campus');
 db.secciones.insertMany([
     {
-        cursoId: '650cbeee4d409afeacfeb334',
+        cursoId: '650d24963fd885ffe42feb63',
         nombre: "Sección 1: Introducción",
         descripcion: "Aca podras aprender sobre la introduccion a node"
     },
     {
-        cursoId: '650cbeee4d409afeacfeb334',
+        cursoId: '650d24963fd885ffe42feb63',
         nombre: "Sección 2: Fundamentos de Node - Primeros pasos",
         descripcion: "Aca podras aprender sobre los fundamentos de node"
     },
     {
-        cursoId: '650cbeee4d409afeacfeb334',
+        cursoId: '650d24963fd885ffe42feb63',
         nombre: "Sección 3: Desarrollando en Node",
         descripcion: "Aca podras aprender sobre como desarrollar en node"
     }
@@ -168,23 +173,73 @@ db.createCollection('videos', {
 use('niggacademy_campus');
 db.videos.insertMany([
     {
-        seccionId: '650d18c637ee28a5ad9315f1',
+        seccionId: '650d24e43d41036a96f34167',
         nombre: 'Introducción',
         urlVideo: 'aun no se han subido'
     },
     {
-        seccionId: '650d18c637ee28a5ad9315f1',
+        seccionId: '650d24e43d41036a96f34167',
         nombre: 'Instalaciones recomendadas',
         urlVideo: 'aun no se han subido'
     },
     {
-        seccionId: '650cbeee4d409afeacfeb334',
+        seccionId: '650d24e43d41036a96f34168',
         nombre: 'Introducción a la sección',
         urlVideo: 'aun no se han subido'
     },
     {
-        seccionId: '650d18c637ee28a5ad9315f3',
+        seccionId: '650d24e43d41036a96f34169',
         nombre: 'Introducción a la sección',
         urlVideo: 'aun no se han subido'
+    }
+])
+
+use('niggacademy_campus');
+db.createCollection('comentarios', {
+    validator:{
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ['comentario'],
+            properties: {
+                cursoId: {bsonType: 'string'},
+                videoId: {bsonType: 'string'},
+                correoUsuario: {bsonType: 'string'},
+                comentario: {bsonType: 'string', description: 'El comentario debe ser string y es obligatorio'}
+            }
+        }
+    }
+})
+
+use('niggacademy_campus');
+db.comentarios.insertMany([
+    {
+        cursoId: '650d24963fd885ffe42feb63',
+        correoUsuario: 'me_encanta_mentir@gmail.com',
+        comentario: 'Me parece genial, sobre todo poruqe es mi curso, le doy 5 estrellas'
+    },
+    {
+        cursoId: '650d24963fd885ffe42feb63',
+        correoUsuario: 'chinguiro@gmail.com',
+        comentario: 'Es increible como piratearon este curso'
+    },
+    {
+        videoId: '650d252001ff2cc8918790bf',
+        correoUsuario: 'chinguiro@gmail.com',
+        comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
+    },
+    {
+        videoId: '650d252001ff2cc8918790c0',
+        correoUsuario: 'mucha_maña@gmail.com',
+        comentario: 'Este es mi segundo comentario genérico, chispas.'
+    },
+    {
+        videoId: '650d252001ff2cc8918790c1',
+        correoUsuario: 'mucha_maña@gmail.com',
+        comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
+    },
+    {
+        videoId: '650d252001ff2cc8918790c2',
+        correoUsuario: 'chinguiro@gmail.com',
+        comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
     }
 ])
