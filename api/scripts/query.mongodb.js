@@ -132,20 +132,59 @@ db.createCollection('secciones', {
 })
 
 use('niggacademy_campus');
-db.cursos.insertMany([
+db.secciones.insertMany([
     {
         cursoId: '650cbeee4d409afeacfeb334',
-        nombre: "Introduccion",
+        nombre: "Sección 1: Introducción",
         descripcion: "Aca podras aprender sobre la introduccion a node"
     },
     {
         cursoId: '650cbeee4d409afeacfeb334',
-        nombre: "BasesNode",
-        descripcion: "Aca podras aprender sobre las bases de node"
+        nombre: "Sección 2: Fundamentos de Node - Primeros pasos",
+        descripcion: "Aca podras aprender sobre los fundamentos de node"
     },
     {
         cursoId: '650cbeee4d409afeacfeb334',
-        nombre: "Variables",
-        descripcion: "Aca podras aprender sobre las variables en node"
+        nombre: "Sección 3: Desarrollando en Node",
+        descripcion: "Aca podras aprender sobre como desarrollar en node"
+    }
+])
+
+use('niggacademy_campus');
+db.createCollection('videos', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ['nombre','urlVideo'],
+            properties: {
+                seccionId: {bsonType: 'string'},
+                nombre: {bsonType: 'string',description: 'El nombre es obligatorio y debe ser string'},
+                urlVideo: {bsonType: 'string', description: 'La descripcion es obligatoria y debe ser string'}
+            }
+        }
+    }
+})
+
+use('niggacademy_campus');
+db.videos.insertMany([
+    {
+        seccionId: '650d18c637ee28a5ad9315f1',
+        nombre: 'Introducción',
+        urlVideo: 'aun no se han subido'
+    },
+    {
+        seccionId: '650d18c637ee28a5ad9315f1',
+        nombre: 'Instalaciones recomendadas',
+        urlVideo: 'aun no se han subido'
+    },
+    {
+        seccionId: '650cbeee4d409afeacfeb334',
+        nombre: 'Introducción a la sección',
+        urlVideo: 'aun no se han subido'
+    },
+    {
+        seccionId: '650d18c637ee28a5ad9315f3',
+        nombre: 'Introducción a la sección',
+        urlVideo: 'aun no se han subido'
     }
 ])
