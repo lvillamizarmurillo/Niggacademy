@@ -1,3 +1,3 @@
 export const loginUsuario = (req,res)=>{
-    res.status(req.data.sattus).send(req.data);
+    res.status(req.data.status).send(req.data);
 }

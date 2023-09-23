@@ -42,7 +42,7 @@ db.usuarios.insertMany([
         rol: 4,
         activo: 1,
         permisos: {
-            "/usuarios": ["1.0.0","1.0.1","1.0.2"]
+            "/usuario": ["1.0.0","1.0.1","1.0.2"]
         }
     },
     {
@@ -54,7 +54,7 @@ db.usuarios.insertMany([
         rol: 1,
         activo: 1,
         permisos: {
-            "/usuarios": ["1.0.0"]
+            "/usuario": ["1.0.0"]
         }
     },
     {
@@ -66,7 +66,7 @@ db.usuarios.insertMany([
         rol: 2,
         activo: 1,
         permisos: {
-            "/usuarios": ["1.0.0"]
+            "/usuario": ["1.0.0"]
         }
     },
     {
@@ -78,7 +78,7 @@ db.usuarios.insertMany([
         rol: 3,
         activo: 1,
         permisos: {
-            "/usuarios": ["1.0.0","1.0.1"]
+            "/usuario": ["1.0.0","1.0.1"]
         }
     }
 ])

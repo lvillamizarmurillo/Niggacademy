@@ -4,10 +4,10 @@ import { ObjectId } from 'mongodb';
 import db from '../config/connectMongo.js';
 
 const env = loadEnv('development', process.cwd(), 'JWT');
-const usuario = db.getInstancia().elegirColeccion('usuarios').conectar();
+const usuario = await db.getInstancia().elegirColeccion('usuarios').conectar();
 const crearToken = async(req,res,next)=>{
     if(Object.keys(req.body) === 0) return res.status(401).send('Datos no enviados')
-    const encoder = TextEncoder();
+    const encoder = new TextEncoder();
     const result = await usuario.findOne({correo: req.body.email, password: req.body.password})
     if(!result) return res.status(401).send({status:401,message:'Usuario no encontrado'})
     const id = result._id.toString();
@@ -20,7 +20,7 @@ const crearToken = async(req,res,next)=>{
     next()
 }
 const verificarToken = async(req,token)=>{
-    const encoder = TextEncoder();
+    const encoder = new TextEncoder();
     const jwtData = new jwtVerify(
         token,
         encoder.encode(env.JWT)

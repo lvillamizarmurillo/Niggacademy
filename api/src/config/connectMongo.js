@@ -13,7 +13,7 @@ export default class Coneccion{
     static getInstancia(){
         if(Coneccion.instancia instanceof Coneccion) return Coneccion.instancia
         Coneccion.instancia = new Coneccion
-        return Coneccion
+        return Coneccion.instancia
     }
 
     elegirColeccion(nombre){
@@ -22,7 +22,7 @@ export default class Coneccion{
     }
 
     conectar(){
-        this.db = this.coneccion.db(this.dbnombre).collection(this.dbcoleccion)
+        this.db = this.coneccion.db(this.dbcoleccion).collection(this.dbnombre)
         return this.db;
     }
 }

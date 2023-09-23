@@ -15,18 +15,18 @@ const nombreLimpio = (archivoNombre)=>{
 const routerDinamico = async(version)=>{
     if(sistemaOp == 'win32') PATH_ROUTERS = path.dirname(new URL(import.meta.url).pathname).replace(/^\/(\w\:)/, '$1');
     else PATH_ROUTERS = path.dirname(new URL(import.meta.url).pathname)
-    PATH_ROUTERS += `V${(version.split('.'))[0]}`
+    PATH_ROUTERS += `/V${(version.split('.'))[0]}`
     const archivos = readdirSync(PATH_ROUTERS)
     const promesasImportantes = archivos.map(async(nombreArchivo)=>{
         const limpioNombre = nombreLimpio(nombreArchivo);
         if(limpioNombre != 'index'){
             try {
-                const moduloRouter = import(`./V${(version.split('.'))[0]}/${nombreArchivo}`)
+                const moduloRouter = await import(`./V${(version.split('.'))[0]}/${nombreArchivo}`)
                 if(moduloRouter.router){
                     router.use(`/${limpioNombre}`,moduloRouter.router)
                 }
             } catch (error) {
-                resizeBy.status(400).send({status:400,message: 'Error al cargar el modulo'+error})
+                res.status(400).send({status:400,message: 'Error al cargar el modulo'+error})
             }
         }
     })
