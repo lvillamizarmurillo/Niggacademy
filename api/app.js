@@ -22,7 +22,6 @@ app
         try {
             app.use('/niggacademy', await routerDinamico(req.header('Accept-version')))
         } catch (error) {
-            console.log(req.header('Accept-version'));
             res.status(400).send({status: 400,message: 'Ingrese en los headers la version a utilizar para el api'})
         }
         next()

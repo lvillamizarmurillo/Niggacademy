@@ -26,7 +26,7 @@ const routerDinamico = async(version)=>{
                     router.use(`/${limpioNombre}`,moduloRouter.router)
                 }
             } catch (error) {
-                res.status(400).send({status:400,message: 'Error al cargar el modulo'+error})
+                console.log({status:400,message: 'Error al cargar el modulo'+error})
             }
         }
     })

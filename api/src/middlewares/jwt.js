@@ -7,6 +7,7 @@ const env = loadEnv('development', process.cwd(), 'JWT');
 const usuario = await db.getInstancia().elegirColeccion('usuarios').conectar();
 const crearToken = async(req,res,next)=>{
     if(Object.keys(req.body) === 0) return res.status(401).send('Datos no enviados')
+    console.log('hola');
     const encoder = new TextEncoder();
     const result = await usuario.findOne({correo: req.body.email, password: req.body.password})
     if(!result) return res.status(401).send({status:401,message:'Usuario no encontrado'})
@@ -20,14 +21,14 @@ const crearToken = async(req,res,next)=>{
     next()
 }
 const verificarToken = async(req,token)=>{
-    const encoder = new TextEncoder();
-    const jwtData = new jwtVerify(
-        token,
-        encoder.encode(env.JWT)
-    )
-    const baseQuitada = req.baseUrl.slice(12)
     try {
-        const result = usuario.fidOne({
+        const encoder = new TextEncoder();
+        const jwtData = await jwtVerify(
+            token,
+            encoder.encode(env.JWT)
+        )
+        const baseQuitada = req.baseUrl.slice(12)
+        let result = await usuario.findOne({
             _id: new ObjectId(jwtData.payload.id),
             [`permisos.${baseQuitada}`]: `${req.headers['accept-version']}`
         })
