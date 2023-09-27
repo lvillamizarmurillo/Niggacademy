@@ -1,4 +1,6 @@
+import { ObjectId } from 'mongodb';
 import db from '../config/connectMongo.js';
+import { traerUserLogin } from '../utils/funcionesGlobales.js';
 
 const curso = db.getInstancia().elegirColeccion('cursos').conectar();
 const comentario = db.getInstancia().elegirColeccion('comentarios').conectar();
@@ -53,5 +55,29 @@ export default class Comentarios {
             }
         ]).toArray();
         res.status(200).send(data)
+    }
+    static async postComentarioCurso(req,res){
+        const user = await traerUserLogin(req);
+        const consulta = await curso.findOne({nombre: req.params.curso});
+        req.body.cursoId = consulta._id.toString();
+        req.body.correoUsuario = user.correo;
+        await comentario.insertOne(req.body);
+        res.status(200).send('Comentario guardado con exito.');
+    }
+    static async postComentarioVideo(req,res){
+        const user = await traerUserLogin(req);
+        const consulta = await video.findOne({nombre: req.params.video});
+        req.body.videoId = consulta._id.toString();
+        req.body.correoUsuario = user.correo;
+        await comentario.insertOne(req.body);
+        res.status(200).send('Comentario guardado con exito.');
+    }
+    static async deleteComentario(req,res){
+        const user = await traerUserLogin(req);
+        if(!req.body.codigo) return res.status(400).send('Ingrese el codigo del comentario a eliminar.');
+        const consulta = await comentario.findOne({_id: new ObjectId(req.body.codigo),correoUsuario: user.correo})
+        if(!consulta) return res.status(400).send('Este comentario no te pertenece, no lo puedes eliminar.');
+        await comentario.deleteOne({_id: new ObjectId(req.body.codigo)})
+        res.status(400).send('Comentario eliminado con exito.');
     }
 }
