@@ -2,6 +2,7 @@ import db from '../config/connectMongo.js';
 
 const video = db.getInstancia().elegirColeccion('videos').conectar();
 const seccion = db.getInstancia().elegirColeccion('secciones').conectar();
+const curso = db.getInstancia().elegirColeccion('cursos').conectar();
 
 export default class Videos {
     static async getVideos(req,res){
@@ -34,5 +35,22 @@ export default class Videos {
             }
         ]).toArray();
         res.status(200).send(data);
+    }
+    static async postVideo(req,res){
+        const user = await traerUserLogin(req)
+        const consulta = await curso.findOne({correo: user.correo,activo:1});
+        if((!consulta)||(consulta.nombre != req.paramas.curso)) return res.status(400).send('No se puede guardar una seccion.');
+        const consulta1 = await seccion.findOne({nombre: req.params.seccion})
+        req.body.seccionId = consulta1._id.toString()
+        await video.insertOne(req.body)
+        res.status(200).send('Se agrego un nuevo video a la seccion.')
+    }
+    static async deleteVideo(req,res){
+        const user = await traerUserLogin(req)
+        const consulta = await curso.findOne({correo: user.correo,activo:1});
+        if((!consulta)||(consulta.nombre != req.paramas.curso)) return res.status(400).send('No se puede guardar una seccion.');
+        if(!req.body.nombre) return res.status(400).send('Para eliminar una seccion debe primero colocar el nombre de esta.');
+        await video.deleteOne({nombre: req.body.nombre})
+        res.status(200).send('Se elimino un video de la seccion.')
     }
 }

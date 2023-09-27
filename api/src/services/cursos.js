@@ -22,7 +22,7 @@ export default class Cursos {
         res.status(200).send(data)
     }
     static async infoCurso(req,res){
-        const user = traerUserLogin(req)
+        const user = await traerUserLogin(req)
         const data = await cursos.aggregate([
             {
                 $match: {correo: user.correo, activo: 1}
@@ -38,7 +38,7 @@ export default class Cursos {
         res.status(200).send(data)
     }
     static async postCurso(req,res){
-        const user = traerUserLogin(req)
+        const user = await traerUserLogin(req)
         if(user.rol != 1) return res.status(400).send('No se puede registrar un curso a su nombre')
         req.body.calificacion = {
             contador: 0,
@@ -46,12 +46,12 @@ export default class Cursos {
         }
         req.correo = user.correo
         req.body.activo = 1
-        await usuario.updateOne({_id: new ObjectId(user._id.toString())},{$set: {rol: 2,permisos: {'/usuario':['1.0.0','1.0.1'],'/contenido':['1.0.0','1.0.1','1.0.2','1.0.3']}}})
+        await usuario.updateOne({_id: new ObjectId(user._id.toString())},{$set: {rol: 2,permisos: {'/usuario':['1.0.0','1.0.1'],'/contenido':['1.0.0','1.0.1','1.0.2','1.0.3','1.0.4']}}})
         await cursos.insertOne(req.body)
         res.status(200).send('Curso registrado exitosamente.')
     }
     static async deleteCurso(req,res){
-        const user = traerUserLogin(req)
+        const user = await traerUserLogin(req)
         if(req.body.confirmacion != 'confirmar') return res.status(400).send('Para borrar el curso digite "confirmar"');
         await cursos.updateOne({correo: user.correo},{$set:{activo: 0}})
         await usuario.updateOne({_id: new ObjectId(user._id.toString())},{$set: {rol: 1,permisos: {'/usuario':['1.0.0'],'/contenido':['1.0.0','1.0.1','1.0.2']}}})
