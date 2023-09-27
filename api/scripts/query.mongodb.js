@@ -251,7 +251,8 @@ db.createCollection('favoritos', {
             bsonType: 'object',
             properties: {
                 cursoId: {bsonType: 'string'},
-                usuarioId: {bsonType: 'string'}
+                usuarioId: {bsonType: 'string'},
+                nombreCurso: {bsonType: 'string'}
             }
         }
     }
@@ -261,7 +262,8 @@ use('niggacademy_campus');
 db.favoritos.insertMany([
     {
         cursoId: '650d24963fd885ffe42feb63',
-        usuarioId: '650d2439199be7f260d56a22'
+        usuarioId: '650d2439199be7f260d56a22',
+        nombreCurso: 'Nodejs'
     }
 ])
 

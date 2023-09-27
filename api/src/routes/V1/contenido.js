@@ -4,13 +4,16 @@ import routesVersioning from "express-routes-versioning";
 import Secciones from '../../services/secciones.js'
 import Videos from '../../services/videos.js'
 import Comentarios from "../../services/comentarios.js";
+import Cursos from "../../services/cursos.js";
 
 const router = Router();
 const version = routesVersioning();
 
 router.get('/:curso', version({'1.0.0': validate(Secciones.getSeccion),'1.0.1': validate(Comentarios.getComentarioCurso),'1.0.2': validate(Comentarios.getRespuesta)}))
 
-router.get('/:curso/:seccion', version({'1.0.0': validate(Videos.getVideo)}))
+router.delete('/:curso', version({'1.0.3': validate(Cursos.actualizarCurso),'1.0.4': validate(Cursos.deleteCurso)}))
+
+router.get('/:curso/:seccion', version({'1.0.0': validate(Videos.getVideos)}))
 
 router.get('/:curso/:seccion/:video', version({'1.0.0': validate(Videos.getVideoSolo),'1.0.1': validate(Comentarios.getComentarioVideo),'1.0.2': validate(Comentarios.getRespuesta)}))
 

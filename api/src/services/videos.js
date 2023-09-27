@@ -4,7 +4,7 @@ const video = db.getInstancia().elegirColeccion('videos').conectar();
 const seccion = db.getInstancia().elegirColeccion('secciones').conectar();
 
 export default class Videos {
-    static async getVideo(req,res){
+    static async getVideos(req,res){
         const consulta = await seccion.findOne({nombre: req.params.seccion})
         const data = await video.aggregate([
             {
