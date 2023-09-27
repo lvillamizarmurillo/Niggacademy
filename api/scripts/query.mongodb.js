@@ -264,3 +264,27 @@ db.favoritos.insertMany([
         usuarioId: '650d2439199be7f260d56a22'
     }
 ])
+
+use('niggacademy_campus');
+db.createCollection('respuestas', {
+    validator:{
+        $jsonSchema: {
+            bsonType: 'object',
+            required: ['comentario'],
+            properties: {
+                comentarioId: {bsonType: 'string'},
+                correoUsuario: {bsonType: 'string'},
+                comentario: {bsonType: 'string', description: 'El comentario debe ser string y es obligatorio'}
+            }
+        }
+    }
+})
+
+use('niggacademy_campus');
+db.respuestas.insertMany([
+    {
+        comentarioId: '650d2797fdb2b5104bf8b5e3',
+        correoUsuario: 'me_encanta_mentir@gmail.com',
+        comentario: 'No sea sapo'
+    }
+])
