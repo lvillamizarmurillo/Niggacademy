@@ -12,6 +12,8 @@ router.get('/:curso', version({'1.0.0': validate(Secciones.getSeccion),'1.0.1': 
 
 router.get('/:curso/:seccion', version({'1.0.0': validate(Videos.getVideo)}))
 
+router.get('/:curso/:seccion/:video', version({'1.0.0': validate(Videos.getVideoSolo),'1.0.1': validate(Comentarios.getComentarioVideo),'1.0.2': validate(Comentarios.getRespuesta)}))
+
 export {
     router
 }

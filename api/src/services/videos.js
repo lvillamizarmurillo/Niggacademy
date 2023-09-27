@@ -19,4 +19,20 @@ export default class Videos {
         ]).toArray();
         res.status(200).send(data);
     }
+    static async getVideoSolo(req,res){
+        const data = await video.aggregate([
+            {
+                $match: {nombre: req.params.video}
+            },
+            {
+                $project: {
+                    _id: 0,
+                    "codigo": "$_id",
+                    "nombre": "$nombre",
+                    "link": "$urlVideo"
+                }
+            }
+        ]).toArray();
+        res.status(200).send(data);
+    }
 }
