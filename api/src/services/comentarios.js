@@ -9,7 +9,8 @@ const video = db.getInstancia().elegirColeccion('videos').conectar();
 
 export default class Comentarios {
     static async getComentarioCurso(req,res){
-        const consulta = await curso.findOne({nombre: req.params.curso})
+        const consulta = await curso.findOne({nombre: req.params.curso,activo:1})
+        if(!consulta) return res.status(400).send({status: 400, message: 'El curso que buscas no existe'})
         const data = await comentario.aggregate([
             {
                 $match: {cursoId: consulta._id.toString()}
@@ -23,6 +24,7 @@ export default class Comentarios {
                 }
             }
         ]).toArray();
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'El curso que buscas aun no tiene comentarios.'})
         res.status(200).send(data)
     }
     static async getComentarioVideo(req,res){
@@ -43,6 +45,7 @@ export default class Comentarios {
         res.status(200).send(data)
     }
     static async getRespuesta(req,res){
+        if(!req.body.codigo) return res.status(400).send({status: 400, message: 'El campo del codigo es requerido.'})
         const data = await respuesta.aggregate([
             {
                 $match: {comentarioId: req.body.codigo}
@@ -50,13 +53,11 @@ export default class Comentarios {
             {
                 $project: {
                     _id: 0,
-                    "codigo": "$_id",
-                    comentarioId: 0,
-                    correoUsuario: 1,
-                    comentario: 1
+                    comentarioId: 0
                 }
             }
         ]).toArray();
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'El comentario aun no tiene respuestas.'})
         res.status(200).send(data)
     }
     static async postComentarioCurso(req,res){

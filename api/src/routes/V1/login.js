@@ -7,7 +7,8 @@ const router = Router();
 const version = routesVersioning();
 
 router.use(crearToken)
-router.post('/', version({'1.0.0': loginUsuario}))
+
+router.post('/', version({'1.0.0': loginUsuario}))//ya
 
 export {
     router

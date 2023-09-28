@@ -10,13 +10,13 @@ const version = routesVersioning();
 
 router.use(passportHelper.authenticate('bearer', {session: false}));
 
-router.get('/info', version({'1.0.0': validate(Usuarios.getInformacion),'1.0.1': validate(Cursos.infoCurso)}));
+router.get('/info', version({'1.0.0': validate(Usuarios.getInformacion),'1.0.1': validate(Cursos.infoCurso)}));//ya 1.0.0, 1.0.1
 
-router.post('/agregar',version({'1.0.0': validate(Cursos.postCurso)}));
+router.post('/agregar',version({'1.0.0': validate(Cursos.postCurso)}));//ya
 
-router.put('/info', version({'1.0.0': validate(Usuarios.putUsuario)}));
+router.put('/info', version({'1.0.0': validate(Usuarios.putUsuario)}));//ya
 
-router.delete('/info', version({'1.0.0': validate(Usuarios.deleteUsuarios)}));
+router.delete('/info', version({'1.0.0': validate(Usuarios.deleteUsuarios),'1.0.1': validate(Cursos.deleteCurso)}));//ya 1.0.0, 1.0.1
 
 router.get('/favoritos', version({'1.0.0': validate(Usuarios.getFavoritos)}));
 

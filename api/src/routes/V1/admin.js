@@ -1,8 +1,8 @@
 import { Router } from "express";
 import routesVersioning from "express-routes-versioning";
-import { validate } from "../../validation/validacionesDefault";
+import { validate } from "../../validation/validacionesDefault.js";
 import passportHelper from "../../config/passportHelper.js";
-import Usuarios from "../../services/usuario";
+import Usuarios from "../../services/usuario.js";
 
 const router = Router();
 const version = routesVersioning();

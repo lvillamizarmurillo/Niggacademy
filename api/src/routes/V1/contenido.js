@@ -13,11 +13,9 @@ const version = routesVersioning();
 
 router.use(passportHelper.authenticate('bearer', {session: false}));
 
-router.get('/:curso', version({'1.0.0': validate(Secciones.getSeccion),'1.0.1': validate(Comentarios.getComentarioCurso),'1.0.2': validate(Comentarios.getRespuesta)}))
+router.get('/:curso', version({'1.0.0': validate(Secciones.getSeccion),'1.0.1': validate(Comentarios.getComentarioCurso),'1.0.2': validate(Comentarios.getRespuesta)}))//ya 1.0.0,1.0.1,1.0.2
 
 router.put('/:curso', version({'1.0.3': validate(Cursos.actualizarCurso)}))
-
-router.delete('/:curso', version({'1.0.3': validate(Cursos.deleteCurso)}))
 
 router.post('/:curso', version({'1.0.0': validate(Comentarios.postComentarioCurso),'1.0.1': validate(Comentarios.postRespuesta),'1.0.2': validate(Usuarios.postFavorito),'1.1.0': validate(Cursos.postCalificacion),'1.0.3': validate(Secciones.postSeccion)}))
 

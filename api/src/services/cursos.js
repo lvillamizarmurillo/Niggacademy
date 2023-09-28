@@ -31,8 +31,7 @@ export default class Cursos {
             {
                 $project: {
                     _id: 0,
-                    activo: 0,
-                    ['calificacion.contador']: 0
+                    activo: 0
                 }
             }
         ]).toArray()
@@ -45,7 +44,7 @@ export default class Cursos {
             contador: 0,
             estrellas: 0
         }
-        req.correo = user.correo
+        req.body.correo = user.correo
         req.body.activo = 1
         await usuario.updateOne({_id: new ObjectId(user._id.toString())},{$set: {rol: 2,permisos: {'/usuario':['1.0.0','1.0.1'],'/contenido':['1.0.0','1.0.1','1.0.2','1.0.3','1.0.4']}}})
         await cursos.insertOne(req.body)

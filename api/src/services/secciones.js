@@ -7,7 +7,8 @@ const video = db.getInstancia().elegirColeccion('videos').conectar();
 
 export default class Secciones {
     static async getSeccion(req,res){
-        const consulta = await curso.findOne({nombre: req.params.curso});
+        const consulta = await curso.findOne({nombre: req.params.curso,activo:1});
+        if(!consulta) return res.status(400).send({status: 400, message: 'El curso que buscas no existe'})
         const data = await seccion.aggregate([
             {
                 $match: {cursoId: consulta._id.toString()}
@@ -19,6 +20,7 @@ export default class Secciones {
                 }
             }
         ]).toArray();
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'El curso que buscas no tiene secciones agregadas aun.'})
         res.status(200).send(data)
     }
     static async deleteSeccion(req,res){
