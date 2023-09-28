@@ -3,7 +3,7 @@ import { traerUserLogin } from '../utils/funcionesGlobales.js';
 import { ObjectId } from 'mongodb';
 const usuario = db.getInstancia().elegirColeccion('usuarios').conectar()
 const favorito = db.getInstancia().elegirColeccion('favoritos').conectar()
-const curso = db.getInstancia().elegirColeccion('curso').conectar()
+const curso = db.getInstancia().elegirColeccion('cursos').conectar()
 
 export default class Usuarios {
     static async postUsuarios(req,res){
@@ -78,7 +78,7 @@ export default class Usuarios {
     }
     static async postFavorito(req,res){
         const user = await traerUserLogin(req);
-        const consulta = curso.findOne({nombre: req.params.curso});
+        const consulta = await curso.findOne({nombre: req.params.curso});
         req.body.cursoId = consulta._id.toString();
         req.body.usuarioId = user._id.toString();
         req.body.nombreCurso = consulta.nombre

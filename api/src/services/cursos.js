@@ -71,7 +71,8 @@ export default class Cursos {
         req.body.correoUsuario = user.correo
         req.body.nombreCurso = req.params.curso
         await calificacion.insertOne(req.body)
-        await cursos.updateOne({nombre: req.params.curso},{$inc: {'calificacion.contador': 1, 'calificacion.estrellas':req.body.calificacion}})
+        const consulta = await cursos.updateOne({nombre: req.params.curso,activo:1},{$inc: {'calificacion.contador': 1, 'calificacion.estrellas':req.body.calificacion}})
+        if(!consulta) return res.status(400).send({status: 400, message: 'El curso no existe'})
         return res.status(200).send('Se califico con exito este curso.');
     }
 }

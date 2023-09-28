@@ -17,7 +17,7 @@ router.get('/:curso', version({'1.0.0': validate(Secciones.getSeccion),'1.0.1': 
 
 router.put('/:curso', version({'1.0.3': validate(Cursos.actualizarCurso)}))
 
-router.post('/:curso', version({'1.0.0': validate(Comentarios.postComentarioCurso),'1.0.1': validate(Comentarios.postRespuesta),'1.0.2': validate(Usuarios.postFavorito),'1.1.0': validate(Cursos.postCalificacion),'1.0.3': validate(Secciones.postSeccion)}))
+router.post('/:curso', version({'1.0.0': validate(Comentarios.postComentarioCurso),'1.0.1': validate(Comentarios.postRespuesta),'1.0.2': validate(Usuarios.postFavorito),'1.1.0': validate(Cursos.postCalificacion),'1.0.3': validate(Secciones.postSeccion)}))//ya 1.0.0,1.0.1,1.0.2,1.1.0
 
 router.delete('/:curso', version({'1.0.0': validate(Comentarios.deleteComentario),'1.0.1': validate(Comentarios.deleteRespuesta),'1.0.4': validate(Secciones.deleteSeccion)}))
 

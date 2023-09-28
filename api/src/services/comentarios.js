@@ -61,6 +61,7 @@ export default class Comentarios {
         res.status(200).send(data)
     }
     static async postComentarioCurso(req,res){
+        if(!req.body.comentario) return res.status(400).send({status: 400, message: 'El campo de comentario es requerido'})
         const user = await traerUserLogin(req);
         const consulta = await curso.findOne({nombre: req.params.curso});
         req.body.cursoId = consulta._id.toString();
@@ -86,7 +87,7 @@ export default class Comentarios {
     }
     static async postRespuesta(req,res){
         const user = await traerUserLogin(req);
-        if(!req.body.comentario||req.body.comentarioId) return res.status(400).send('Verifique que el comentario no este vacio.');
+        if((!req.body.comentario)||(!req.body.comentarioId)) return res.status(400).send('Verifique que el comentario no este vacio.');
         req.body.correoUsuario = user.correo
         await respuesta.insertOne(req.body)
         res.status(200).send('Comentario agregado exitosamente')

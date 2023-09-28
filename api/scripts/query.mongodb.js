@@ -65,7 +65,7 @@ db.usuarios.insertMany([
         nombreUsuario: 'LaCalleEsUnaCeldaDeCemento',
         correo: "muchaMana@gmail.com",
         password: "321",
-        rol: 2,
+        rol: 3,
         activo: 1,
         permisos: {
             "/usuario": ["1.0.0"],
