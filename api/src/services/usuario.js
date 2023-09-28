@@ -62,7 +62,7 @@ export default class Usuarios {
         res.status(200).send(data)
     }
     static async putUsuario(req,res){
-        if((req.body.rol)||(req.body.permisos)||(req.body.activo)) return res.status(400).send("No es valido el dato enviado, no se puede cambiar");
+        if((req.body.rol)||(req.body.permisos)||(req.body.activo)) return res.status(400).send({status: 400,message: "No es valido el dato enviado, no se puede cambiar"});
         const user = await traerUserLogin(req);
         await usuario.updateOne({ _id: new ObjectId(user._id.toString()) }, { $set: req.body })
         res.status(200).send({status: 200, message: "Usuario actualizado con exito"})
@@ -83,15 +83,15 @@ export default class Usuarios {
         req.body.usuarioId = user._id.toString();
         req.body.nombreCurso = consulta.nombre
         await favorito.insertOne(req.body)
-        res.status(200).send('Se guardo en favoritos exitosamente')
+        res.status(200).send({status: 200,message: 'Se guardo en favoritos exitosamente'})
     }
     static async deleteFavoritos(req,res){
-        if(!req.body.nombre) return res.status(400).send('Agregue el nombre del curso a eliminar')
+        if(!req.body.nombre) return res.status(400).send({status: 400,message: 'Agregue el nombre del curso a eliminar'})
         const user = await traerUserLogin(req);
         const consulta = await favorito.findOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
-        if(!consulta) return res.status(400).send('La consulta no es valida, revise el nombre del curso.')
+        if(!consulta) return res.status(400).send({status: 400, message: 'La consulta no es valida, revise el nombre del curso.'})
         await favorito.deleteOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
-        res.status(200).send('Se elimino este curso de favoritos exitosamente.')
+        res.status(200).send({status: 200,message: 'Se elimino este curso de favoritos exitosamente.'})
     }
     static async getAllUsuarios(req,res){
         const data = await usuario.aggregate([
