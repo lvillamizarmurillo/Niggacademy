@@ -7,6 +7,7 @@ const curso = db.getInstancia().elegirColeccion('cursos').conectar();
 export default class Videos {
     static async getVideos(req,res){
         const consulta = await seccion.findOne({nombre: req.params.seccion})
+        if(!consulta) return res.status(400).send({status: 400, message: 'La seccion no existe'})
         const data = await video.aggregate([
             {
                 $match: {seccionId: consulta._id.toString()}
@@ -18,9 +19,12 @@ export default class Videos {
                 }
             }
         ]).toArray();
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'La seccion que buscas no tiene videos agregados aun.'})
         res.status(200).send(data);
     }
     static async getVideoSolo(req,res){
+        const consulta = await video.findOne({nombre: req.params.seccion})
+        if(!consulta) return res.status(400).send({status: 400, message: 'El video que buscas no existe'})
         const data = await video.aggregate([
             {
                 $match: {nombre: req.params.video}

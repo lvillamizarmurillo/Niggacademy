@@ -19,15 +19,15 @@ router.put('/:curso', version({'1.0.3': validate(Cursos.actualizarCurso)}))
 
 router.post('/:curso', version({'1.0.0': validate(Comentarios.postComentarioCurso),'1.0.1': validate(Comentarios.postRespuesta),'1.0.2': validate(Usuarios.postFavorito),'1.1.0': validate(Cursos.postCalificacion),'1.0.3': validate(Secciones.postSeccion)}))//ya 1.0.0,1.0.1,1.0.2,1.1.0
 
-router.delete('/:curso', version({'1.0.0': validate(Comentarios.deleteComentario),'1.0.1': validate(Comentarios.deleteRespuesta),'1.0.4': validate(Secciones.deleteSeccion)}))
+router.delete('/:curso', version({'1.0.0': validate(Comentarios.deleteComentario),'1.0.1': validate(Comentarios.deleteRespuesta),'1.0.4': validate(Secciones.deleteSeccion)}))//ya 1.0.0,1.0.1
 
-router.get('/:curso/:seccion', version({'1.0.0': validate(Videos.getVideos)}))
+router.get('/:curso/:seccion', version({'1.0.0': validate(Videos.getVideos)}))//ya 1.0.0
 
 router.post('/:curso/:seccion', version({'1.0.3': validate(Videos.postVideo)}))
 
 router.delete('/:curso/:seccion', version({'1.0.3': validate(Videos.deleteVideo)}))
 
-router.get('/:curso/:seccion/:video', version({'1.0.0': validate(Videos.getVideoSolo),'1.0.1': validate(Comentarios.getComentarioVideo),'1.0.2': validate(Comentarios.getRespuesta)}))
+router.get('/:curso/:seccion/:video', version({'1.0.0': validate(Videos.getVideoSolo),'1.0.1': validate(Comentarios.getComentarioVideo),'1.0.2': validate(Comentarios.getRespuesta)}))//ya 1.0.0
 
 router.post('/:curso/:seccion/:video', version({'1.0.0': validate(Comentarios.postComentarioVideo),'1.0.1': validate(Comentarios.postRespuesta)}))
 

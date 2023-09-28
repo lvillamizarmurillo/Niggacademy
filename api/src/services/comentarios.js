@@ -79,24 +79,24 @@ export default class Comentarios {
     }
     static async deleteComentario(req,res){
         const user = await traerUserLogin(req);
-        if(!req.body.codigo) return res.status(400).send('Ingrese el codigo del comentario a eliminar.');
+        if(!req.body.codigo) return res.status(400).send({status: 400,message: 'Ingrese el codigo del comentario a eliminar.'});
         const consulta = await comentario.findOne({_id: new ObjectId(req.body.codigo),correoUsuario: user.correo})
-        if(!consulta) return res.status(400).send('Este comentario no te pertenece, no lo puedes eliminar.');
+        if(!consulta) return res.status(400).send({status: 400,message: 'Este comentario no te pertenece, no lo puedes eliminar.'});
         await comentario.deleteOne({_id: new ObjectId(req.body.codigo)})
         res.status(400).send({status: 200,message: 'Comentario eliminado con exito.'});
     }
     static async postRespuesta(req,res){
         const user = await traerUserLogin(req);
-        if((!req.body.comentario)||(!req.body.comentarioId)) return res.status(400).send('Verifique que el comentario no este vacio.');
+        if((!req.body.comentario)||(!req.body.comentarioId)) return res.status(400).send({status: 400,message: 'Verifique que el comentario no este vacio.'});
         req.body.correoUsuario = user.correo
         await respuesta.insertOne(req.body)
         res.status(200).send({status: 200,message: 'Comentario agregado exitosamente'})
     }
     static async deleteRespuesta(req,res){
         const user = await traerUserLogin(req);
-        if(!req.body.codigo) return res.status(400).send('Ingrese el codigo del comentario a eliminar.');
+        if(!req.body.codigo) return res.status(400).send({status: 400,message: 'Ingrese el codigo del comentario a eliminar.'});
         const consulta = await respuesta.findOne({_id: new ObjectId(req.body.codigo),correoUsuario: user.correo})
-        if(!consulta) return res.status(400).send('Este comentario no te pertenece, no lo puedes eliminar.');
+        if(!consulta) return res.status(400).send({status: 400,message: 'Este comentario no te pertenece, no lo puedes eliminar.'});
         await respuesta.deleteOne({_id: new ObjectId(req.body.codigo)})
         res.status(400).send({status: 200,message:'Comentario eliminado con exito.'});
     }

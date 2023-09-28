@@ -78,6 +78,8 @@ export default class Usuarios {
     }
     static async postFavorito(req,res){
         const user = await traerUserLogin(req);
+        const consulta1 = await favorito.findOne({usuarioId: user._id.toString(), nombreCurso: req.params.curso})
+        if(consulta1) return res.status(400).send({status: 400,message: 'Ya tienes guardado este curso en favoritos'})
         const consulta = await curso.findOne({nombre: req.params.curso});
         req.body.cursoId = consulta._id.toString();
         req.body.usuarioId = user._id.toString();
