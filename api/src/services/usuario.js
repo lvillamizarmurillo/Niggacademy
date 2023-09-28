@@ -3,6 +3,7 @@ import { traerUserLogin } from '../utils/funcionesGlobales.js';
 import { ObjectId } from 'mongodb';
 const usuario = db.getInstancia().elegirColeccion('usuarios').conectar()
 const favorito = db.getInstancia().elegirColeccion('favoritos').conectar()
+const curso = db.getInstancia().elegirColeccion('curso').conectar()
 
 export default class Usuarios {
     static async postUsuarios(req,res){
@@ -74,5 +75,22 @@ export default class Usuarios {
         }else{
             return res.status(400).send({status: 400, message: "Para eliminar la cuenta necesita colocar confirmacion: confirmar"})
         }
+    }
+    static async postFavorito(req,res){
+        const user = await traerUserLogin(req);
+        const consulta = curso.findOne({nombre: req.params.curso});
+        req.body.cursoId = consulta._id.toString();
+        req.body.usuarioId = user._id.toString();
+        req.body.nombreCurso = consulta.nombre
+        await favorito.insertOne(req.body)
+        res.status(200).send('Se guardo en favoritos exitosamente')
+    }
+    static async deleteFavoritos(req,res){
+        if(!req.body.nombre) return res.status(400).send('Agregue el nombre del curso a eliminar')
+        const user = await traerUserLogin(req);
+        const consulta = await favorito.findOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
+        if(!consulta) return res.status(400).send('La consulta no es valida, revise el nombre del curso.')
+        await favorito.deleteOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
+        res.status(200).send('Se elimino este curso de favoritos exitosamente.')
     }
 }

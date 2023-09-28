@@ -53,14 +53,14 @@ export default class Cursos {
     static async deleteCurso(req,res){
         const user = await traerUserLogin(req)
         if(req.body.confirmacion != 'confirmar') return res.status(400).send('Para borrar el curso digite "confirmar"');
-        await cursos.updateOne({correo: user.correo},{$set:{activo: 0}})
+        await cursos.updateOne({correo: user.correo, activo: 1},{$set:{activo: 0}})
         await usuario.updateOne({_id: new ObjectId(user._id.toString())},{$set: {rol: 1,permisos: {'/usuario':['1.0.0'],'/contenido':['1.0.0','1.0.1','1.0.2']}}})
         res.status(200).send('Curso eliminado exitosamente.')
     }
     static async actualizarCurso(req,res){
         if((req.body.activo)||(req.body.correo)||(req.body.calificacion)) return res.status(400).send('Hay valores que no se pueden modificar en el campo');
         const user = await traerUserLogin(req);
-        await cursos.updateOne({ correo: user.correo }, { $set: req.body })
+        await cursos.updateOne({ correo: user.correo, activo: 1 }, { $set: req.body })
         res.status(200).send({status: 200, message: "Curso actualizado con exito"})
     }
 }

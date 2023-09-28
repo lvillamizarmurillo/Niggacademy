@@ -20,6 +20,8 @@ router.delete('/info', version({'1.0.0': validate(Usuarios.deleteUsuarios)}));
 
 router.get('/favoritos', version({'1.0.0': validate(Usuarios.getFavoritos)}));
 
+router.delete('/favoritos', version({'1.0.0': validate(Usuarios.deleteFavoritos)}));
+
 export {
     router
 }
