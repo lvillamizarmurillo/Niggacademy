@@ -34,18 +34,6 @@ db.usuarios.createIndex({ correo: 1, nombreUsuario: 1}, { unique: true })
 use('niggacademy_campus');
 db.usuarios.insertMany([
     {
-        nombre: "Ludwing",
-        apellido: "Villamizar",
-        nombreUsuario: 'lvillamizarmurillo',
-        correo: "ludsan@gmail.com",
-        password: "contraseña",
-        rol: 4,
-        activo: 1,
-        permisos: {
-            "/usuario": ["1.0.0","1.0.1","1.0.2"]
-        }
-    },
-    {
         nombre: "Carlos",
         apellido: "Chinguiro",
         nombreUsuario: 'MataTejas2000',
@@ -54,7 +42,8 @@ db.usuarios.insertMany([
         rol: 1,
         activo: 1,
         permisos: {
-            "/usuario": ["1.0.0"]
+            "/usuario": ["1.0.0"],
+            "/contenido": ["1.0.0","1.0.1","1.0.2","1.1.0"]
         }
     },
     {
@@ -66,19 +55,36 @@ db.usuarios.insertMany([
         rol: 2,
         activo: 1,
         permisos: {
-            "/usuario": ["1.0.0"]
+            "/usuario": ["1.0.0","1.0.1"],
+            "/contenido": ['1.0.0','1.0.1','1.0.2','1.0.3','1.0.4']
         }
     },
     {
         nombre: "Juanito",
         apellido: "Alimaña",
         nombreUsuario: 'LaCalleEsUnaCeldaDeCemento',
-        correo: "mucha_maña@gmail.com",
+        correo: "muchaMana@gmail.com",
         password: "321",
-        rol: 3,
+        rol: 2,
         activo: 1,
         permisos: {
-            "/usuario": ["1.0.0","1.0.1"]
+            "/usuario": ["1.0.0"],
+            "/contenido": ["1.0.0","1.0.1","1.0.2","1.1.0"],
+            "/admin": ["1.0.10","1.0.11","1.0.12","1.1.13"]
+        }
+    },
+    {
+        nombre: "Ludwing",
+        apellido: "Villamizar",
+        nombreUsuario: 'lvillamizarmurillo',
+        correo: "ludsan@gmail.com",
+        password: "contraseña",
+        rol: 4,
+        activo: 1,
+        permisos: {
+            "/usuario": ["1.0.0"],
+            "/contenido": ["1.0.0","1.0.1","1.0.2","1.1.0"],
+            "/admin": ["1.0.10","1.0.11","1.0.12","1.1.13","1.0.14","1.0.15","1.0.16","1.0.17","1.1.18","1.0.19"]
         }
     }
 ])
@@ -97,7 +103,7 @@ db.createCollection('cursos', {
                     required: ['contador','estrellas'],
                     properties: {
                         contador: {bsonType: 'int',description: 'El contador es requerido y debe ser entero'},
-                        estrellas: {bsonType: 'int',enum: [0,1,2,3,4,5],description: 'Las estrellas son requeridas y deben ser un numero entero'}
+                        estrellas: {bsonType: 'int',description: 'Las estrellas son requeridas y deben ser un numero entero'}
                     }
                 },
                 correo: {bsonType: 'string',pattern: "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",description: 'El correo es obligatorio y debe ser string'},
@@ -139,17 +145,17 @@ db.createCollection('secciones', {
 use('niggacademy_campus');
 db.secciones.insertMany([
     {
-        cursoId: '650d24963fd885ffe42feb63',
+        cursoId: '65153146fdac36b52d9a4bb2',
         nombre: "Sección 1: Introducción",
         descripcion: "Aca podras aprender sobre la introduccion a node"
     },
     {
-        cursoId: '650d24963fd885ffe42feb63',
+        cursoId: '65153146fdac36b52d9a4bb2',
         nombre: "Sección 2: Fundamentos de Node - Primeros pasos",
         descripcion: "Aca podras aprender sobre los fundamentos de node"
     },
     {
-        cursoId: '650d24963fd885ffe42feb63',
+        cursoId: '65153146fdac36b52d9a4bb2',
         nombre: "Sección 3: Desarrollando en Node",
         descripcion: "Aca podras aprender sobre como desarrollar en node"
     }
@@ -173,22 +179,22 @@ db.createCollection('videos', {
 use('niggacademy_campus');
 db.videos.insertMany([
     {
-        seccionId: '650d24e43d41036a96f34167',
+        seccionId: '651531a43e4c7da104b45282',
         nombre: 'Introducción',
         urlVideo: 'aun no se han subido'
     },
     {
-        seccionId: '650d24e43d41036a96f34167',
+        seccionId: '651531a43e4c7da104b45282',
         nombre: 'Instalaciones recomendadas',
         urlVideo: 'aun no se han subido'
     },
     {
-        seccionId: '650d24e43d41036a96f34168',
+        seccionId: '651531a43e4c7da104b45283',
         nombre: 'Introducción a la sección',
         urlVideo: 'aun no se han subido'
     },
     {
-        seccionId: '650d24e43d41036a96f34169',
+        seccionId: '651531a43e4c7da104b45284',
         nombre: 'Introducción a la sección',
         urlVideo: 'aun no se han subido'
     }
@@ -213,32 +219,32 @@ db.createCollection('comentarios', {
 use('niggacademy_campus');
 db.comentarios.insertMany([
     {
-        cursoId: '650d24963fd885ffe42feb63',
+        cursoId: '65153146fdac36b52d9a4bb2',
         correoUsuario: 'me_encanta_mentir@gmail.com',
         comentario: 'Me parece genial, sobre todo poruqe es mi curso, le doy 5 estrellas'
     },
     {
-        cursoId: '650d24963fd885ffe42feb63',
+        cursoId: '65153146fdac36b52d9a4bb2',
         correoUsuario: 'chinguiro@gmail.com',
         comentario: 'Es increible como piratearon este curso'
     },
     {
-        videoId: '650d252001ff2cc8918790bf',
+        videoId: '651531edb635b5e2b7d6c6f2',
         correoUsuario: 'chinguiro@gmail.com',
         comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
     },
     {
-        videoId: '650d252001ff2cc8918790c0',
+        videoId: '651531edb635b5e2b7d6c6f3',
         correoUsuario: 'mucha_maña@gmail.com',
         comentario: 'Este es mi segundo comentario genérico, chispas.'
     },
     {
-        videoId: '650d252001ff2cc8918790c1',
+        videoId: '651531edb635b5e2b7d6c6f4',
         correoUsuario: 'mucha_maña@gmail.com',
         comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
     },
     {
-        videoId: '650d252001ff2cc8918790c2',
+        videoId: '651531edb635b5e2b7d6c6f5',
         correoUsuario: 'chinguiro@gmail.com',
         comentario: 'Aqui empieza mi aventura, (Obviamente no puede faltar un comentario genérico)'
     }
@@ -261,8 +267,8 @@ db.createCollection('favoritos', {
 use('niggacademy_campus');
 db.favoritos.insertMany([
     {
-        cursoId: '650d24963fd885ffe42feb63',
-        usuarioId: '650d2439199be7f260d56a22',
+        cursoId: '65153146fdac36b52d9a4bb2',
+        usuarioId: '6515311568d6a53e1637fb17',
         nombreCurso: 'Nodejs'
     }
 ])
@@ -285,8 +291,29 @@ db.createCollection('respuestas', {
 use('niggacademy_campus');
 db.respuestas.insertMany([
     {
-        comentarioId: '650d2797fdb2b5104bf8b5e3',
+        comentarioId: '65153256cfa5dbec44a68df9',
         correoUsuario: 'me_encanta_mentir@gmail.com',
         comentario: 'No sea sapo'
+    }
+])
+
+use('niggacademy_campus');
+db.createCollection('calificacion', {
+    validator: {
+        $jsonSchema: {
+            bsonType: 'object',
+            properties: {
+                nombreCurso: {bsonType: 'string'},
+                correoUsuario: {bsonType: 'string'}
+            }
+        }
+    }
+})
+
+use('niggacademy_campus');
+db.calificacion.insertMany([
+    {
+        nombreCurso: "Nodejs",
+        correoUsuario: "6515311568d6a53e1637fb17"
     }
 ])

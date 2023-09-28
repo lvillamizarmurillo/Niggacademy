@@ -11,7 +11,7 @@ export default class Usuarios {
         req.body.rol = 1;
         req.body.permisos = {
             "/usuario": ["1.0.0"],
-            '/contenido':['1.0.0','1.0.1','1.0.2']
+            '/contenido':['1.0.0','1.0.1','1.0.2','1.1.0']
         }
         await usuario.insertOne(req.body);
         res.status(200).send({status: 200, message: "Usuario registrado con exito"});
@@ -92,5 +92,138 @@ export default class Usuarios {
         if(!consulta) return res.status(400).send('La consulta no es valida, revise el nombre del curso.')
         await favorito.deleteOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
         res.status(200).send('Se elimino este curso de favoritos exitosamente.')
+    }
+    static async getAllUsuarios(req,res){
+        const data = await usuario.aggregate([
+            {
+                $match: {
+                    rol: {$lt: 3}
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    password: 0,
+                    rol: 0,
+                    permisos: 0
+                }
+            }
+        ]).toArray()
+        res.status(200).send(data)
+    }
+    static async getAllUsuariosNormales(req,res){
+        const data = await usuario.aggregate([
+            {
+                $match: {
+                    rol: 1
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    password: 0,
+                    rol: 0,
+                    permisos: 0
+                }
+            }
+        ]).toArray()
+        res.status(200).send(data)
+    }
+    static async getAllUsuariosCursos(req,res){
+        const data = await usuario.aggregate([
+            {
+                $match: {
+                    rol: 2
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    password: 0,
+                    rol: 0,
+                    permisos: 0
+                }
+            }
+        ]).toArray()
+        res.status(200).send(data)
+    }
+    static async getAllUsuariosTotal(req,res){
+        const data = await usuario.aggregate([
+            {
+                $match: {
+                    rol: {$lt: 4}
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    password: 0,
+                    rol: 0,
+                    permisos: 0
+                }
+            }
+        ]).toArray()
+        res.status(200).send(data)
+    }
+    static async getAllUsuariosAdmin(req,res){
+        const data = await usuario.aggregate([
+            {
+                $match: {
+                    rol: 3
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    password: 0,
+                    rol: 0,
+                    permisos: 0
+                }
+            }
+        ]).toArray()
+        res.status(200).send(data)
+    }
+    static async postAdmin(req,res){
+        req.body.activo = 1;
+        req.body.rol = 3;
+        req.body.permisos = {
+            "/usuario": ["1.0.0"],
+            '/contenido':['1.0.0','1.0.1','1.0.2','1.1.0'],
+            "/admin": ["1.0.10","1.0.11","1.0.12","1.0.13"]
+        }
+        await usuario.insertOne(req.body);
+        res.status(200).send({status: 200, message: "Usuario registrado con exito"});
+    }
+    static async deleteUser(req,res){
+        if(!req.body.correo) return res.status(400).send({status: 200, message: "Debe colocar el correo del usuario para eliminarlo"});
+        await usuario.deleteOne({correo: req.body.correo});
+        res.status(200).send({status: 200, message: "Usuario eliminado con exito"});
+    }
+    static async deleteCurso(req,res){
+        if((!req.body.correo)||(!req.body.nombre)) return res.status(400).send({status: 200, message: "Debe colocar el correo y el nombre del curso para eliminarlo"});
+        await curso.deleteOne({nombre: req.body.nombre,correo: req.body.correo});
+        res.status(200).send({status: 200, message: "Curso eliminado con exito"});
+    }
+    static async deleteCursosInactivos(req,res){
+        if(req.body.confirmacion != 'confirmar') return res.status(400).send({status: 200, message: "Debe colocar el confirmar para eliminar todos los cursos inactivos"});
+        await curso.deleteMany([
+            {
+                $match: {
+                    activo: 0
+                }
+            }
+        ]);
+        res.status(200).send({status: 200, message: "Cursos inactivos eliminados con exito"});
+    }
+    static async deleteUsersInactivos(req,res){
+        if(req.body.confirmacion != 'confirmar') return res.status(400).send({status: 200, message: "Debe colocar el confirmar para eliminar todos los usuarios inactivos"});
+        await usuario.deleteMany([
+            {
+                $match: {
+                    activo: 0
+                }
+            }
+        ]);
+        res.status(200).send({status: 200, message: "Usuarios inactivos eliminados con exito"});
     }
 }
