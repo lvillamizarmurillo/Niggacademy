@@ -37,6 +37,22 @@ export default class Cursos {
         ]).toArray()
         res.status(200).send(data)
     }
+    static async getCursoId(req,res){
+        if(!req.body.nombre) return res.status(400).send({status: 400,message: 'Coloque en el campo el nombre del curso'});
+        const data = await cursos.aggregate([
+            {
+                $match: {nombre: req.body.nombre, activo: 1}
+            },
+            {
+                $project: {
+                    _id: 0,
+                    activo: 0
+                }
+            }
+        ]).toArray()
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'El curso que buscas no se encuentra, verifica el nombre.'})
+        res.status(200).send(data)
+    }
     static async postCurso(req,res){
         const user = await traerUserLogin(req)
         if(user.rol != 1) return res.status(400).send({status: 400,message: 'No se puede registrar un curso a su nombre'})

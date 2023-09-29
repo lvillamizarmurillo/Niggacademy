@@ -13,7 +13,7 @@ router.get('/',version({'1.0.10': validate(Usuarios.getAllUsuarios),'1.0.11': va
 
 router.post('/registro', version({'1.0.15': validate(Usuarios.postAdmin)}))
 
-router.delete('/', version({'1.0,15': validate(Usuarios.deleteUser),'1.0,16': validate(Usuarios.deleteCurso),'1.0,17': validate(Usuarios.deleteCursosInactivos),'1.0,18': validate(Usuarios.deleteUsersInactivos)}))
+router.delete('/', version({'1.0.15': validate(Usuarios.deleteUser),'1.0.16': validate(Usuarios.deleteCurso),'1.0.17': validate(Usuarios.deleteCursosInactivos),'1.0.18': validate(Usuarios.deleteUsersInactivos)}))
 
 export {
     router

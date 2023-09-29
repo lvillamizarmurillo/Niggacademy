@@ -199,34 +199,29 @@ export default class Usuarios {
     }
     static async deleteUser(req,res){
         if(!req.body.correo) return res.status(400).send({status: 200, message: "Debe colocar el correo del usuario para eliminarlo"});
-        await usuario.deleteOne({correo: req.body.correo});
+        const data = await curso.findOne({correo: req.body.correo})
+        await usuario.deleteOne({correo: req.body.correo}); 
+        if(data){
+            await curso.deleteOne({correo: req.body.correo});
+            return res.status(200).send({status: 200, message: "Usuario eliminado con exito"});
+        }
         res.status(200).send({status: 200, message: "Usuario eliminado con exito"});
     }
     static async deleteCurso(req,res){
         if((!req.body.correo)||(!req.body.nombre)) return res.status(400).send({status: 200, message: "Debe colocar el correo y el nombre del curso para eliminarlo"});
+        const data = await curso.findOne({nombre: req.body.nombre,correo: req.body.correo});
+        if(!data) return res.status(400).send({status: 400, message: "El curso no existe, verifique el nombre y correo."});
         await curso.deleteOne({nombre: req.body.nombre,correo: req.body.correo});
         res.status(200).send({status: 200, message: "Curso eliminado con exito"});
     }
     static async deleteCursosInactivos(req,res){
         if(req.body.confirmacion != 'confirmar') return res.status(400).send({status: 200, message: "Debe colocar el confirmar para eliminar todos los cursos inactivos"});
-        await curso.deleteMany([
-            {
-                $match: {
-                    activo: 0
-                }
-            }
-        ]);
+        await curso.deleteMany({activo: 0})
         res.status(200).send({status: 200, message: "Cursos inactivos eliminados con exito"});
     }
     static async deleteUsersInactivos(req,res){
         if(req.body.confirmacion != 'confirmar') return res.status(400).send({status: 200, message: "Debe colocar el confirmar para eliminar todos los usuarios inactivos"});
-        await usuario.deleteMany([
-            {
-                $match: {
-                    activo: 0
-                }
-            }
-        ]);
+        await usuario.deleteMany({activo: 0});
         res.status(200).send({status: 200, message: "Usuarios inactivos eliminados con exito"});
     }
 }
