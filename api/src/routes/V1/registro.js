@@ -6,7 +6,7 @@ import { validate } from '../../validation/validacionesDefault.js'
 const router = Router();
 const version = routesVersioning();
 
-router.post('/', version({'1.0.0': validate(Usuarios.postUsuarios)}))//ya
+router.post('/', version({'1.0.0': validate(Usuarios.postUsuarios)}))//ya 1.0.0
 
 export {
     router

@@ -27,11 +27,11 @@ router.post('/:curso/:seccion', version({'1.0.3': validate(Videos.postVideo)}))
 
 router.delete('/:curso/:seccion', version({'1.0.3': validate(Videos.deleteVideo)}))
 
-router.get('/:curso/:seccion/:video', version({'1.0.0': validate(Videos.getVideoSolo),'1.0.1': validate(Comentarios.getComentarioVideo),'1.0.2': validate(Comentarios.getRespuesta)}))//ya 1.0.0
+router.get('/:curso/:seccion/:video', version({'1.0.0': validate(Videos.getVideoSolo),'1.0.1': validate(Comentarios.getComentarioVideo),'1.0.2': validate(Comentarios.getRespuesta)}))//ya 1.0.0,1.0.1,1.0.2
 
-router.post('/:curso/:seccion/:video', version({'1.0.0': validate(Comentarios.postComentarioVideo),'1.0.1': validate(Comentarios.postRespuesta)}))
+router.post('/:curso/:seccion/:video', version({'1.0.0': validate(Comentarios.postComentarioVideo),'1.0.1': validate(Comentarios.postRespuesta)}))//ya 1.0.0,1.0.1
 
-router.delete('/:curso/:seccion/:video', version({'1.0.0': validate(Comentarios.deleteComentario),'1.0.1': validate(Comentarios.deleteRespuesta)}))
+router.delete('/:curso/:seccion/:video', version({'1.0.0': validate(Comentarios.deleteComentario),'1.0.1': validate(Comentarios.deleteRespuesta)}))//ya 1.0.0,1.0.1
 
 export {
     router

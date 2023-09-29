@@ -23,7 +23,7 @@ export default class Videos {
         res.status(200).send(data);
     }
     static async getVideoSolo(req,res){
-        const consulta = await video.findOne({nombre: req.params.seccion})
+        const consulta = await video.findOne({nombre: req.params.video})
         if(!consulta) return res.status(400).send({status: 400, message: 'El video que buscas no existe'})
         const data = await video.aggregate([
             {

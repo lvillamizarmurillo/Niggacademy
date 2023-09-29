@@ -59,6 +59,7 @@ export default class Usuarios {
                 }
             }
         ]).toArray();
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'Aun no hay cursos favoritos guardados.'})
         res.status(200).send(data)
     }
     static async putUsuario(req,res){
@@ -90,9 +91,9 @@ export default class Usuarios {
     static async deleteFavoritos(req,res){
         if(!req.body.nombre) return res.status(400).send({status: 400,message: 'Agregue el nombre del curso a eliminar'})
         const user = await traerUserLogin(req);
-        const consulta = await favorito.findOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
+        const consulta = await favorito.findOne({usuarioId: user._id.toString(),nombreCurso: req.body.nombre})
         if(!consulta) return res.status(400).send({status: 400, message: 'La consulta no es valida, revise el nombre del curso.'})
-        await favorito.deleteOne({userId: user._id.toString(),nombreCurso: req.body.nombre})
+        await favorito.deleteOne({usuarioId: user._id.toString(),nombreCurso: req.body.nombre})
         res.status(200).send({status: 200,message: 'Se elimino este curso de favoritos exitosamente.'})
     }
     static async getAllUsuarios(req,res){

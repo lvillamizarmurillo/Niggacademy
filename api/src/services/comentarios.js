@@ -29,6 +29,7 @@ export default class Comentarios {
     }
     static async getComentarioVideo(req,res){
         const consulta = await video.findOne({nombre: req.params.video})
+        if(!consulta) return res.status(400).send({status: 400, message: 'El video que buscas no existe'})
         const data = await comentario.aggregate([
             {
                 $match: {videoId: consulta._id.toString()}
@@ -42,6 +43,7 @@ export default class Comentarios {
                 }
             }
         ]).toArray();
+        if(data.length === 0) return res.status(400).send({status: 400, message: 'El video aun no cuenta con comentarios.'})
         res.status(200).send(data)
     }
     static async getRespuesta(req,res){
