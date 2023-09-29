@@ -14,7 +14,7 @@ router.get('/info', version({'1.0.0': validate(Usuarios.getInformacion),'1.0.1':
 
 router.post('/agregar',version({'1.0.0': validate(Cursos.postCurso)}));//ya 1.0.0
 
-router.put('/info', version({'1.0.0': validate(Usuarios.putUsuario)}));//ya 1.0.0
+router.put('/info', version({'1.0.0': validate(Usuarios.putUsuario),'1.0.1': validate(Cursos.actualizarCurso)}));//ya 1.0.0,1.0.1
 
 router.delete('/info', version({'1.0.0': validate(Usuarios.deleteUsuarios),'1.0.1': validate(Cursos.deleteCurso)}));//ya 1.0.0, 1.0.1
 

@@ -60,7 +60,7 @@ export default class Cursos {
     static async actualizarCurso(req,res){
         if((req.body.activo)||(req.body.correo)||(req.body.calificacion)) return res.status(400).send({status: 400,message: 'Hay valores que no se pueden modificar en el campo'});
         const user = await traerUserLogin(req);
-        await cursos.updateOne({ correo: user.correo, activo: 1 }, { $set: req.body })
+        const data = await cursos.updateOne({ correo: user.correo, activo: 1 }, { $set: req.body })
         res.status(200).send({status: 200, message: "Curso actualizado con exito"})
     }
     static async postCalificacion(req,res){
