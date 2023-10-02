@@ -6,54 +6,70 @@
 body{
     background-color: #616161;
 }
-header{
-    background-color: #03A9F4;
-    width: 100vw;
-    clear: both;
-    content: '';
-    display: table;
-}
-.menu{
-    height: 70px;
-    width: 100%;
-    margin: 0 auto;
+.contenedor-cursos{
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.logo{
-    width: 10rem;
-    height: 4rem;
-    float: left;
-    padding: 8px;
-}
-nav{
-    float: right;
-}
-nav ul li{
-    list-style: none;
-    margin-left: 25px;
-    padding: 12px 15px;
-    float: left;
-    position: relative;
-}
-nav ul li a{
-    text-decoration: none;
-    color: #444;
-    font-weight: bold;
-}
-nav ul li a::before{
-    display: block;
-    content: '';
-    width: 0%;
-    background: #444;
-    height: 5px;
-    top: 51px;
     position: absolute;
-    margin-left: -5px;
-    transition: 1s;
-}
-nav ul li a:hover::before{
+    margin-top: 80px;
     width: 100%;
+    height: 100%;
+    justify-content: center;
 }
-
+.caja-curso{
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    position: relative;
+    margin-left: 12px;
+    margin-right: 12px;
+    width: 30%;
+    height: 120px;
+    background-color: #535353;
+    padding: 1rem;
+    border-radius: 5px;
+}
+.nombre-curso{
+    display: flex;
+    width: 100%;
+    height: 30px;
+    margin-top: -10px;
+}
+.nombre-curso h2 a{
+    text-decoration: none;
+    color: white;
+}
+.descripcion-curso {
+    margin-top: 8px;
+}
+.descripcion-curso h3{
+    float: right;
+    width: 25%;
+    text-align: center;
+    padding-top: 20px;
+    color: rgb(224, 224, 224);
+}
+.descripcion-curso p{
+    float: left;
+    width: 70%;
+    height: 68px;
+    overflow-y: scroll;
+    color: rgb(155, 155, 155);
+}
+.calificacion-curso{
+    padding-top: 4px;
+    width: 100%;
+    height: 20px;
+    text-align: end;
+    margin-top: 5px;
+    color: white;
+}
+@media (max-width: 800px) {
+    /* Aplicar flex-direction: column cuando la pantalla sea igual o menor a 800px */
+    .contenedor-cursos {
+      flex-direction: column;
+      display:block;
+    }
+    .caja-curso{
+        margin-top: 80px;
+        width: 80%;
+    }
+}
