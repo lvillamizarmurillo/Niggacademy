@@ -7,8 +7,8 @@
     align-items: center;
 }
 .wrapper {
-    --input-focus: #2d8cf0;
-    --font-color: #fefefe;
+    --input-focus: #551111;
+    --font-color: #bdbdbd;
     --font-color-sub: #7e7e7e;
     --bg-color: #111;
     --bg-color-alt: #7e7e7e;

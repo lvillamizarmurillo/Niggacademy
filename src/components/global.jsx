@@ -5,7 +5,9 @@ function Navegadora() {
     return (
         <header>
             <div className="menu">
-                <img src={logo} alt="img" className='logo' />
+                <a href="http://127.16.15.14:5073/">
+                    <img src={logo} alt="img" className='logo' />
+                </a>
                 <nav>
                     <ul>
                         <li><a href="http://127.16.15.14:5073/">Home</a></li>

@@ -59,7 +59,7 @@ function Secciones() {
                                 <div className="nombre-curso-seccion">
                                     <h2><Link to={`/`}>{item.nombre}</Link></h2>
                                 </div>
-                                <div className="descripcion-curso">
+                                <div className="descripcion-curso-seccion">
                                     <p>{item.descripcion}</p>
                                 </div>
                             </div>

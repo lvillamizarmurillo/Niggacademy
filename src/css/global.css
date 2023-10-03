@@ -4,11 +4,12 @@
     box-sizing: border-box;
 }
 header{
-    background: radial-gradient( 150% 80% at 100% 0%, #89E5FF 0%, #5468FF 100% );
+    background-image: url('../assets/fondonav.png');
     width: 100%;
     clear: both;
     content: '';
     display: table;
+    border-bottom: solid 1px rgb(116, 116, 116);
     position: absolute;
 }
 .menu{
@@ -21,7 +22,7 @@ header{
     align-items: center;
 }
 .logo{
-    width: 10rem;
+    width: 200px;
     height: 4rem;
     float: left;
     padding: 8px;
@@ -38,14 +39,14 @@ nav ul li{
 }
 nav ul li a{
     text-decoration: none;
-    color: #444;
+    color: #bdbdbd;
     font-weight: bold;
 }
 nav ul li a::before{
     display: block;
     content: '';
     width: 0%;
-    background: #444;
+    background: #bdbdbd;
     height: 5px;
     top: 51px;
     position: absolute;
