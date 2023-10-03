@@ -8,11 +8,8 @@ function Navegadora() {
                 <img src={logo} alt="img" className='logo' />
                 <nav>
                     <ul>
-                        <li><a href="">Inicio</a></li>
-                        <li><a href="">Sobre mi</a></li>
-                        <li><a href="">Servicios</a></li>
-                        <li><a href="">Blog</a></li>
-                        <li><a href="">Contacto</a></li>
+                        <li><a href="http://127.16.15.14:5073/">Home</a></li>
+                        <li><a href="http://127.16.15.14:5073/login/">Login</a></li>
                     </ul>
                 </nav>
             </div>

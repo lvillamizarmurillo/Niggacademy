@@ -1,95 +1,56 @@
 import '../../css/home.css'
 import Navegadora from '../global';
+import React, { useState, useEffect } from 'react';
 
 function Home() {
+    const [data, setData] = useState(null);
+    useEffect(() => {
+        const fetchDataFromApi = async () => {
+          try {
+            const response = await(await fetch('http://127.16.15.14:5072/niggacademy/home', {
+                method: "GET",
+                headers: {
+                    'Accept-version': '1.0.0'
+                }
+            })).json();
+            setData(response);
+          } catch (error) {
+            console.error(error);
+          }
+        };
+        // Llama a la función de solicitud cuando el componente se monta
+        fetchDataFromApi();
+      }, []);
+      console.log(data);
     return (
         <>
             <Navegadora />
             <div className="contenedor-cursos">
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
+                {data !== null ? (
+                    data.map((item,index)=>(
+                        <div className="caja-curso" key={index}>
+                            <div className="nombre-curso">
+                                <h2><a href="">{item.nombre}</a></h2>
+                            </div>
+                            <div className="descripcion-curso">
+                                <p>{item.descripcion}</p>
+                                <h3>pts: {item.calificacion.estrellas}</h3>
+                            </div>
+                            <div className="calificacion-curso">
+                                <h6>Calificado por: {item.calificacion.contador} personas</h6>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <div class="wrapper">
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="circle"></div>
+                        <div class="shadow"></div>
+                        <div class="shadow"></div>
+                        <div class="shadow"></div>
                     </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 4 personas</h6>
-                    </div>
-                </div>
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
-                    </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 4 personas</h6>
-                    </div>
-                </div>
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
-                    </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 4 personas</h6>
-                    </div>
-                </div>
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
-                    </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 4 personas</h6>
-                    </div>
-                </div>
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
-                    </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 4 personas</h6>
-                    </div>
-                </div>
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
-                    </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 4 personas</h6>
-                    </div>
-                </div>
-                <div className="caja-curso">
-                    <div className="nombre-curso">
-                        <h2><a href="">nombre curso</a></h2>
-                    </div>
-                    <div className="descripcion-curso">
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Recusandae minima, reiciendis excepturi saepe accusantium illum iste sint perferendis ad odio nesciunt amet error est fugiat tenetur molestiae incidunt commodi nisi?</p>
-                        <h3>pts: 85</h3>
-                    </div>
-                    <div className="calificacion-curso">
-                        <h6>Calificado por: 45 personas</h6>
-                    </div>
-                </div>
+                )}
             </div>
         </>
     )

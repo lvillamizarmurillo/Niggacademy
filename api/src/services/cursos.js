@@ -15,8 +15,7 @@ export default class Cursos {
             {
                 $project: {
                     _id: 0,
-                    activo: 0,
-                    ['calificacion.contador']: 0
+                    activo: 0
                 }
             }
         ]).toArray()
