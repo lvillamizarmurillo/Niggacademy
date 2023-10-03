@@ -1,6 +1,7 @@
+import { Link } from 'react-router-dom';
 import '../../css/home.css'
 import Navegadora from '../global';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 
 function Home() {
     const [data, setData] = useState(null);
@@ -29,7 +30,7 @@ function Home() {
                     data.map((item,index)=>(
                         <div className="caja-curso" key={index}>
                             <div className="nombre-curso">
-                                <h2><a href="">{item.nombre}</a></h2>
+                                <h2><Link to={`/secciones/${item.nombre}`}>{item.nombre}</Link></h2>
                             </div>
                             <div className="descripcion-curso">
                                 <p>{item.descripcion}</p>
