@@ -39,10 +39,7 @@ function Secciones() {
         }
     };
     const verifyToken = () => {
-        if(!localStorage.token){
-            navigate('/login');
-        }
-        // Agrega tu lógica aquí
+        if(!localStorage.token)return navigate('/login');
       };
       useEffect(() => {
         verifyToken();
@@ -57,7 +54,7 @@ function Secciones() {
                         data.map((item,index)=>(
                             <div className="caja-curso" key={index}>
                                 <div className="nombre-curso-seccion">
-                                    <h2><Link to={`/`}>{item.nombre}</Link></h2>
+                                    <h2><Link to={`/contenido/${nombreCurso['*']}/${item.nombre}`}>{item.nombre}</Link></h2>
                                 </div>
                                 <div className="descripcion-curso-seccion">
                                     <p>{item.descripcion}</p>
