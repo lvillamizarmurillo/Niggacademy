@@ -7,11 +7,10 @@ import { Link } from 'react-router-dom';
 
 function Video() {
   const [videosVisible, setVideosVisible] = useState(true);
-  const [info, setInfo] = useState(null);
-  const [data, setData] = useState(null);
+  const [info, setInfo] = useState([]);
+  const [data, setData] = useState([{link: null}]);
   const navigate = useNavigate();
   let nombreVideo = useParams();
-  console.log(nombreVideo);
   const fetchDataFromApi = async () => {
     try {
       const response = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreVideo['curso']}/${nombreVideo['seccion']}`, {
@@ -35,7 +34,11 @@ function Video() {
               'Authorization': `Bearer ${localStorage.token}`
           }
       })).json();
-      setData(response);
+      if(response.status == 400){
+        console.log(response);
+      }else{
+        setData(response);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +54,6 @@ function Video() {
   useEffect(() => {
     fetchDataFromApi()
     verifyToken();
-    fetchVideo();
   }, []);
   return (
     <>
@@ -59,7 +61,7 @@ function Video() {
       <div className="lotienetodo">
         <div className="videopaver">
           <div className="cargando">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/nYnLVWXmRm8?si=4piUUeWeyM8uH67k"></iframe>
+            <iframe width="100%" height="100%" src={data[0].link}></iframe>
           </div>
           <button className="ola" onClick={toggleVideosVisibility}>
           →
@@ -69,7 +71,7 @@ function Video() {
           <div className="demasvideos">
             <table>
                 <tbody>
-                    {info !== null ? (
+                    {info.length > 0 ? (
                     info.map((item, index) => (
                         <React.Fragment key={index}>
                         <tr>
@@ -79,7 +81,7 @@ function Video() {
                     ))
                     ) : (
                     <tr>
-                        <td colSpan="2" className="wrapper">
+                        <td  className="wrapper">
                         <div className="circle"></div>
                         <div className="circle"></div>
                         <div className="circle"></div>
@@ -97,11 +99,5 @@ function Video() {
     </>
   );
 }
-{/* <table>
-                <tbody>
-                    <tr>
-                        <td><h3>Titulo</h3></td>
-                    </tr>
-                </tbody>
-            </table> */}
+
 export default Video;

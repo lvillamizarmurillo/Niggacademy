@@ -10,14 +10,12 @@
     float: left;
     width: 70%;
     height: 100%;
-    background-color: blueviolet;
 }
 .videos{
     display: flex;
     float: right;
     width: 30%;
     height: 100%;
-    background-color: blue;
 }
 .cargando{
     display: flex;
@@ -31,6 +29,7 @@
     width: 92%;
     height: 95%;
     background-color: black;
+    border-radius: 8px;
     padding: 10px;
 }
 .videos.hidden {
@@ -75,4 +74,7 @@
 .demasvideos table tbody tr td a{
     text-decoration: none;
     color: aliceblue;
+}
+.demasvideos table{
+    width: 100%;
 }
