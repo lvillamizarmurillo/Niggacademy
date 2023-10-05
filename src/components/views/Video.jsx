@@ -26,7 +26,7 @@ function Video() {
         alert(response.message)
       }
     } catch (error) {
-      throw(error)
+      console.log(error)
     }
 };
     const fetchVideo = async () => {
@@ -39,12 +39,12 @@ function Video() {
           }
       })).json();
       if(response.status == 400){
-        throw(response.status);
+        console.log(response.status);
       }else{
         setData(response);
       }
     } catch (error) {
-      throw(error);
+      console.log(error);
     }
     };
   const verifyToken = () => {
