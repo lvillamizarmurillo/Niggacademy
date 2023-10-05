@@ -20,7 +20,7 @@ function Video() {
               'Authorization': `Bearer ${localStorage.token}`
           }
       })).json();
-      if(response.status == 200){
+      if(response){
         setInfo(response);
       }else{
         console.log(response.message)

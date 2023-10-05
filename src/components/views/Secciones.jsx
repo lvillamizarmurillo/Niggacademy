@@ -20,7 +20,7 @@ function Secciones() {
                   'Authorization': `Bearer ${localStorage.token}`
               }
           })).json();
-          if(response.status == 200){
+          if(response){
             setData(response);
           }else{
             console.log(response.message)
@@ -38,7 +38,7 @@ function Secciones() {
                   'Authorization': `Bearer ${localStorage.token}`
               }
           })).json();
-          if(response1.status == 200){
+          if(response1){
             setDataComment(response1);
           }else{
             console.log(response1.message)
