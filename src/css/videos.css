@@ -22,7 +22,11 @@
     margin: auto;
     width: 97%;
     height: 95%;
-    background-color: black;
+}
+.cargando iframe{
+    position: absolute;
+    width: 67.9%;
+    height: 94.7%;
 }
 .demasvideos{
     margin: auto;
