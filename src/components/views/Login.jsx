@@ -15,7 +15,7 @@ function Login() {
 
     const loginIn = async(e)=>{
         e.preventDefault();
-        const response = await(await fetch('http://127.16.15.14:5072/niggacademy/login', {
+        const response = await(await fetch('http://192.168.129.72:5072/niggacademy/login', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -30,12 +30,12 @@ function Login() {
             localStorage.setItem('token',response.message)
             navigate('/');
         }else{
-            console.log(response.message);
+            alert(response.message)
         }
     }
     const registroIn = async(e)=>{
         e.preventDefault();
-        const response = await(await fetch('http://127.16.15.14:5072/niggacademy/registro', {
+        const response = await(await fetch('http://192.168.129.72:5072/niggacademy/registro', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -53,7 +53,7 @@ function Login() {
             console.log(response.message);
             loginIn(e);
         }else{
-            console.log(response.error);
+            alert(response.error)
         }
     }
 

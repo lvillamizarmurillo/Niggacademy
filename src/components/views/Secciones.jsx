@@ -13,28 +13,36 @@ function Secciones() {
     const nombreCurso = useParams();
     const fetchDataFromApi = async () => {
         try {
-          const response = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreCurso['*']}`, {
+          const response = await(await fetch(`http://192.168.129.72:5072/niggacademy/contenido/${nombreCurso['*']}`, {
               method: "GET",
               headers: {
                   'Accept-version': '1.0.0',
                   'Authorization': `Bearer ${localStorage.token}`
               }
           })).json();
-          setData(response);
+          if(response.status == 200){
+            setData(response);
+          }else{
+            alert(response.message)
+          }
         } catch (error) {
           console.error(error);
         }
     };
     const fetchDataFromApiComment = async () => {
         try {
-          const response1 = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreCurso['*']}`, {
+          const response1 = await(await fetch(`http://192.168.129.72:5072/niggacademy/contenido/${nombreCurso['*']}`, {
               method: "GET",
               headers: {
                   'Accept-version': '1.0.1',
                   'Authorization': `Bearer ${localStorage.token}`
               }
           })).json();
-          setDataComment(response1);
+          if(response1.status == 200){
+            setDataComment(response1);
+          }else{
+            alert(response1.message)
+          }
         } catch (error) {
           console.error(error);
         }
@@ -43,12 +51,9 @@ function Secciones() {
         e.preventDefault();
         setComentario(e.target.value);
     };
-    const machetazo = (e) => {
-        navigate('/')
-    };
     const commentIn = async(e)=>{
         e.preventDefault();
-        const response = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreCurso['*']}`, {
+        const response = await(await fetch(`http://192.168.129.72:5072/niggacademy/contenido/${nombreCurso['*']}`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
@@ -59,11 +64,10 @@ function Secciones() {
                 comentario: comentario
             })
         })).json();
-        console.log(response);
         if(response.status == 200){
             console.log(response.message);
         }else{
-            console.log(response.error);
+            alert(response.error);
         }
     }
     const verifyToken = () => {

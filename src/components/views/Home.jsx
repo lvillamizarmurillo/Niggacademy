@@ -8,7 +8,7 @@ function Home() {
     useEffect(() => {
         const fetchDataFromApi = async () => {
           try {
-            const response = await(await fetch('http://127.16.15.14:5072/niggacademy/home', {
+            const response = await(await fetch('http://192.168.129.72:5072/niggacademy/home', {
                 method: "GET",
                 headers: {
                     'Accept-version': '1.0.0'

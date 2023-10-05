@@ -13,21 +13,25 @@ function Video() {
   let nombreVideo = useParams();
   const fetchDataFromApi = async () => {
     try {
-      const response = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreVideo['curso']}/${nombreVideo['seccion']}`, {
+      const response = await(await fetch(`http://192.168.129.72:5072/niggacademy/contenido/${nombreVideo['curso']}/${nombreVideo['seccion']}`, {
           method: "GET",
           headers: {
               'Accept-version': '1.0.0',
               'Authorization': `Bearer ${localStorage.token}`
           }
       })).json();
-      setInfo(response);
+      if(response.status == 200){
+        setInfo(response);
+      }else{
+        alert(response.message)
+      }
     } catch (error) {
       console.log(error);
     }
 };
     const fetchVideo = async () => {
     try {
-      const response = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreVideo['curso']}/${nombreVideo['seccion']}/${nombreVideo['video']}`, {
+      const response = await(await fetch(`http://192.168.129.72:5072/niggacademy/contenido/${nombreVideo['curso']}/${nombreVideo['seccion']}/${nombreVideo['video']}`, {
           method: "GET",
           headers: {
               'Accept-version': '1.0.0',
