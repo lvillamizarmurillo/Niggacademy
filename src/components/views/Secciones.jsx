@@ -7,8 +7,9 @@ import { Link } from 'react-router-dom';
 
 function Secciones() {
     const navigate = useNavigate();
-    const [data, setData] = useState(null);
+    const [data, setData] = useState([]);
     const [dataComment, setDataComment] = useState(null);
+    const [comentario, setComentario] = useState(null);
     const nombreCurso = useParams();
     const fetchDataFromApi = async () => {
         try {
@@ -38,6 +39,30 @@ function Secciones() {
           console.error(error);
         }
     };
+    const handleComment = (e) => {
+        e.preventDefault();
+        setComentario(e.target.value);
+    };
+    const commentIn = async(e)=>{
+        e.preventDefault();
+        const response = await(await fetch(`http://127.16.15.14:5072/niggacademy/contenido/${nombreCurso['*']}`, {
+            method: "POST",
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.token}`,
+                'Accept-version': '1.0.0'
+            },
+            body: JSON.stringify({
+                comentario: comentario
+            })
+        })).json();
+        console.log(response);
+        if(response.status == 200){
+            console.log(response.message);
+        }else{
+            console.log(response.error);
+        }
+    }
     const verifyToken = () => {
         if(!localStorage.token)return navigate('/login');
       };
@@ -101,6 +126,12 @@ function Secciones() {
                             </tr>
                             )}
                         </tbody>
+                        <div className="envio-respuesta-uav-en-camino">
+                            <form onSubmit={commentIn}>
+                                <input className="input" onChange={handleComment} name="text" placeholder="Escribe tu comentario" type="text" />
+                                <button>Enviar</button>
+                            </form>
+                        </div>
                     </table>
                 </div>
             </div>
