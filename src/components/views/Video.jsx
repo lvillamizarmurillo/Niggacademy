@@ -23,7 +23,7 @@ function Video() {
       if(response.status == 200){
         setInfo(response);
       }else{
-        alert(response.message)
+        console.log(response.message)
       }
     } catch (error) {
       console.log(error)

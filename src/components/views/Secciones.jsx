@@ -23,7 +23,7 @@ function Secciones() {
           if(response.status == 200){
             setData(response);
           }else{
-            alert(response.message)
+            console.log(response.message)
           }
         } catch (error) {
           console.error(error);
@@ -41,7 +41,7 @@ function Secciones() {
           if(response1.status == 200){
             setDataComment(response1);
           }else{
-            alert(response1.message)
+            console.log(response1.message)
           }
         } catch (error) {
           console.error(error);
@@ -65,9 +65,9 @@ function Secciones() {
             })
         })).json();
         if(response.status == 200){
-            alert(response.message)
+            console.log(response.message)
         }else{
-            alert(response.error);
+            console.log(response.error);
         }
     }
     const verifyToken = () => {
