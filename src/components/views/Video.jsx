@@ -34,6 +34,7 @@ function Video() {
               'Authorization': `Bearer ${localStorage.token}`
           }
       })).json();
+      console.log(response);
       if(response.status == 400){
         console.log(response);
       }else{
@@ -55,13 +56,15 @@ function Video() {
     fetchDataFromApi()
     verifyToken();
   }, []);
+  console.log(data[0]);
   return (
     <>
       <Navegadora />
       <div className="lotienetodo">
         <div className="videopaver">
           <div className="cargando">
-            <iframe width="100%" height="100%" src={data[0].link}></iframe>
+          <video src={data[0].link} preload="auto" controls width="100%" height="100%"
+    ></video>
           </div>
           <button className="ola" onClick={toggleVideosVisibility}>
           →
