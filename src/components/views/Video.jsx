@@ -26,7 +26,7 @@ function Video() {
         alert(response.message)
       }
     } catch (error) {
-      console.log(error);
+      throw(error)
     }
 };
     const fetchVideo = async () => {
@@ -39,12 +39,12 @@ function Video() {
           }
       })).json();
       if(response.status == 400){
-        console.log(response.status);
+        throw(response.status);
       }else{
         setData(response);
       }
     } catch (error) {
-      console.log(error);
+      throw(error);
     }
     };
   const verifyToken = () => {
@@ -59,7 +59,6 @@ function Video() {
     fetchDataFromApi()
     verifyToken();
   }, []);
-  console.log(data[0].link);
   return (
     <>
       <Navegadora />

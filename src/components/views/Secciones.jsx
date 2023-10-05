@@ -65,7 +65,7 @@ function Secciones() {
             })
         })).json();
         if(response.status == 200){
-            console.log(response.message);
+            alert(response.message)
         }else{
             alert(response.error);
         }

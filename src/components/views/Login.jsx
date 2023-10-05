@@ -50,7 +50,6 @@ function Login() {
             })
         })).json();
         if(response.status == 200){
-            console.log(response.message);
             loginIn(e);
         }else{
             alert(response.error)
