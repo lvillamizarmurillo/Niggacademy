@@ -49,7 +49,7 @@ function Secciones() {
     return (
         <>
             <Navegadora />
-            <div className="contenedor-cursos">
+            <div className="contenedor-cursos-seccion">
                     {data !== null ? (
                         data.map((item,index)=>(
                             <div className="caja-curso" key={index}>

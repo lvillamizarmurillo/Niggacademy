@@ -25,10 +25,10 @@ function Home() {
     return (
         <>
             <Navegadora />
-            <div className="contenedor-cursos">
+            <div className="contenedor-cursos-bueno">
                 {data !== null ? (
                     data.map((item,index)=>(
-                        <div className="caja-curso" key={index}>
+                        <div className="caja-curso-bueno" key={index}>
                             <div className="nombre-curso">
                                 <h2><Link to={`/secciones/${item.nombre}`}>{item.nombre}</Link></h2>
                             </div>

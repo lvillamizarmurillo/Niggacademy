@@ -3,25 +3,33 @@
     padding: 0;
     box-sizing: border-box;
 }
-body{
-    background-color: #616161;
-}
-.contenedor-cursos{
-    display: flex;
+.contenedor-cursos-bueno{
+    display: grid;
     position: absolute;
     margin-top: 80px;
     width: 100%;
     height: 100%;
-    justify-content: center;
+    grid-template-columns: repeat(1, 1fr);
 }
-.caja-curso{
+
+@media screen and (min-width: 900px){
+  .contenedor-cursos-bueno{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    height: 100%;
+  }
+}
+
+
+
+.caja-curso-bueno{
     display: flex;
     margin-top: 50px;
     flex-direction: column;
     position: relative;
     margin-left: 12px;
     margin-right: 12px;
-    width: 30%;
     height: 120px;
     background-color: #535353;
     padding: 1rem;

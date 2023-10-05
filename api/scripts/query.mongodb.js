@@ -146,17 +146,17 @@ use('niggacademy_campus');
 db.secciones.insertMany([
     {
         cursoId: '65166b6335fecd4a72505ef1',
-        nombre: "Sección 1: Introducción",
+        nombre: "Sección 10: Introducción",
         descripcion: "Aca podras aprender sobre la introduccion a node"
     },
     {
         cursoId: '65166b6335fecd4a72505ef1',
-        nombre: "Sección 2: Fundamentos de Node - Primeros pasos",
+        nombre: "Sección 11: Fundamentos de Node - Primeros pasos",
         descripcion: "Aca podras aprender sobre los fundamentos de node"
     },
     {
         cursoId: '65166b6335fecd4a72505ef1',
-        nombre: "Sección 3: Desarrollando en Node",
+        nombre: "Sección 12: Desarrollando en Node",
         descripcion: "Aca podras aprender sobre como desarrollar en node"
     }
 ])

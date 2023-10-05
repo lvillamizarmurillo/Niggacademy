@@ -6,6 +6,37 @@
 body{
     background-image: url('../assets/fondo.png');
 }
+.contenedor-cursos-seccion{
+    display: grid;
+    position: absolute;
+    margin-top: 80px;
+    width: 100%;
+    height: 715px;
+    overflow-y: auto;
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media screen and (min-width: 900px){
+  .contenedor-cursos-seccion{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    width: 100%;
+    height: 715;
+    overflow-y: auto;
+  }
+}
+.caja-curso{
+    display: flex;
+    margin-top: 50px;
+    flex-direction: column;
+    position: relative;
+    margin-left: 12px;
+    margin-right: 12px;
+    height: 120px;
+    background-color: #535353;
+    padding: 1rem;
+    border-radius: 5px;
+}
 .comentarios{
     display: flex;
     position: absolute;
@@ -33,19 +64,6 @@ body{
     height: 255px;
     overflow-y: auto;
     color: rgb(136, 136, 136);
-}
-.caja-curso{
-    display: flex;
-    margin-top: 50px;
-    flex-direction: column;
-    position: relative;
-    margin-left: 12px;
-    margin-right: 12px;
-    width: 30%;
-    height: 120px;
-    background-color: #535353;
-    padding: 1rem;
-    border-radius: 5px;
 }
 .nombre-curso-seccion{
     display: flex;
