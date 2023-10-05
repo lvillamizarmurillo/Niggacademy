@@ -7,7 +7,7 @@ import routerDinamico from './src/routes/index.js';
 const env = loadEnv('development', process.cwd(), 'VITE');
 const app = express()
 const corsOptions = {
-    origin: 'http://127.16.15.14:5073', // Reemplaza con el dominio de tu aplicación frontend
+    origin: 'http://192.168.129.72:5072', // Reemplaza con el dominio de tu aplicación frontend
 };
 const config = {
     hostname: env.VITE_HOSTNAME,
